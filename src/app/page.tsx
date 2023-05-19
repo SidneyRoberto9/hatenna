@@ -1,20 +1,12 @@
-"use client";
-import { useSearch } from "@/context/search.context";
 import { SearchButton } from "@/components/SearchButton";
-import { Card } from "@/components/Card/Card";
+import { CardList } from "@/components/Card/List";
 
 export default function Home() {
-  const { cardSearch } = useSearch();
-
   return (
     <main className="mt-52 flex h-full w-full justify-center">
-      <section className="flex flex-col items-center gap-20">
+      <section className="flex flex-col items-center gap-5">
         <SearchButton />
-
-        {cardSearch.cards.length > 0 &&
-          cardSearch.cards.map((card) => (
-            <Card key={card.slug} attributes={card} type="small" />
-          ))}
+        <CardList />
       </section>
     </main>
   );
