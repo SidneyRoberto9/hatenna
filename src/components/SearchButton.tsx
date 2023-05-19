@@ -1,12 +1,12 @@
 "use client";
 
 import { KeyboardEvent, useRef } from "react";
-import { Search } from "lucide-react";
+import { StretchHorizontal, Search, LayoutGrid } from "lucide-react";
 
 import { useSearch } from "@/context/search.context";
 
 export function SearchButton() {
-  const { search, cardSearch } = useSearch();
+  const { search, cardSearch, changeLayoutType } = useSearch();
 
   const searchValueRef = useRef<HTMLInputElement>(null);
   const isIdle = cardSearch.lastSearchValue != null;
@@ -44,13 +44,27 @@ export function SearchButton() {
       />
 
       {isIdle && (
-        <span className="flex text-sm ">
-          <p> Last Search:</p>
+        <div className="flex items-center justify-between">
+          <span className="flex text-sm ">
+            <p> Last Search:</p>
 
-          <h5 className="ml-2 text-primary-button">
-            {cardSearch.lastSearchValue}
-          </h5>
-        </span>
+            <h5 className="ml-2 text-primary-button">
+              {cardSearch.lastSearchValue}
+            </h5>
+          </span>
+          <div className="mt-1 flex gap-2">
+            <LayoutGrid
+              size={20}
+              className="cursor-pointer text-primary-button"
+              onClick={() => changeLayoutType("grid")}
+            />
+            <StretchHorizontal
+              size={20}
+              className="cursor-pointer text-primary-button"
+              onClick={() => changeLayoutType("stretch")}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
