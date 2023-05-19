@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import { CardAtributes } from "@/@Types/Card";
@@ -8,7 +9,11 @@ interface LargeCardProps {
 
 export function LargeCard({ attributes }: LargeCardProps) {
   return (
-    <div className="flex h-60 w-892 max-w-5xl overflow-hidden rounded-lg shadow-lg">
+    <Link
+      href={`/anime/${attributes.slug}`}
+      prefetch={false}
+      className="flex h-60 w-892 max-w-5xl overflow-hidden rounded-lg shadow-lg"
+    >
       <div className="relative h-60 w-full">
         <Image
           src={attributes.post_image}
@@ -25,6 +30,6 @@ export function LargeCard({ attributes }: LargeCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
