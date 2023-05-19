@@ -13,10 +13,14 @@ interface SearchContextProviderProps {
 
 type SearchState = "loading" | "idle" | "error";
 
+type LayoutCartType = "grid" | "stretch";
+
 interface SearchContextType {
-  searchState: SearchState;
   cardSearch: CardSearch;
+  searchState: SearchState;
+  layoutCardType: LayoutCartType;
   search: (value: string) => Promise<void>;
+  changeLayoutType: (layout: LayoutCartType) => void;
 }
 
 interface CardSearch {
@@ -62,11 +66,16 @@ const SearchContext = createContext<SearchContextType>({} as SearchContextType);
 export function SearchContextProvider({
   children,
 }: SearchContextProviderProps) {
+  const [layoutType, setLayoutType] = useState<"grid" | "stretch">("grid");
   const [searchState, setSearchState] = useState<SearchState>("idle");
   const [contentSearch, setContentSearch] = useState<CardSearch>({
     cards: [],
     lastSearchValue: null,
   });
+
+  function changeLayoutType(layout: LayoutCartType) {
+    setLayoutType(layout);
+  }
 
   async function search(value: string) {
     try {
@@ -90,7 +99,13 @@ export function SearchContextProvider({
 
   return (
     <SearchContext.Provider
-      value={{ searchState, cardSearch: contentSearch, search }}
+      value={{
+        searchState,
+        cardSearch: contentSearch,
+        search,
+        layoutCardType: layoutType,
+        changeLayoutType,
+      }}
     >
       {children}
     </SearchContext.Provider>
