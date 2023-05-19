@@ -17,9 +17,10 @@ export function SmallCard({ attributes }: LargeCardProps) {
       <div className="relative h-72 w-full">
         <Image
           src={attributes.image}
-          alt="Picture of the author"
-          width={1920}
-          height={1080}
+          alt={attributes.slug}
+          width={192}
+          height={288}
+          loading="lazy"
           className="h-full w-full object-cover"
         />
         <div className="absolute bottom-0 left-0 flex h-auto w-full justify-between gap-2 bg-primary/75 px-1 py-2 text-sm text-secondary">
