@@ -24,12 +24,12 @@ export function SearchButton() {
   }
 
   return (
-    <div className="relative h-16 w-96">
+    <div className="relative h-16 w-96 ">
       <label htmlFor="search" className="my-1 text-sm">
         Try out Search for your Favorite Anime
       </label>
       <input
-        className="relative h-12 w-full rounded-md border-2 border-primary-button p-2"
+        className="relative h-12 w-full rounded-md border-2 border-primary-button bg-secondary-button p-2"
         id="search"
         type="text"
         placeholder="Search for an anime, e.g Naruto"
