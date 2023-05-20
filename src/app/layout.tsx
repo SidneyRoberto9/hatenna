@@ -19,7 +19,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-secondary text-primary`}>
+      <body
+        className={`${inter.className} bg-secondary-button text-primary antialiased`}
+      >
         <SearchContextProvider>{children}</SearchContextProvider>
       </body>
     </html>
