@@ -11,11 +11,14 @@ module.exports = {
         118: "29.5rem",
         892: "223rem",
       },
+      height: {
+        100: "25rem",
+      },
       colors: {
         primary: "#0d0c0d",
         secondary: "#ffffff",
         "primary-button": "#94898e",
-        "secondary-button": "#f3f2f2",
+        "secondary-button": "#edf1f5",
         Accent: "#a1979b",
       },
     },
