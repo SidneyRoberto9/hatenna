@@ -3,7 +3,7 @@
 import React, { ReactNode, useState, useContext, createContext } from "react";
 import { atRule } from "postcss";
 
-import { api } from "@/server/api";
+import { kitsuApi } from "@/server/api";
 import { KitsuAnimeResponse } from "@/@Types/Kitsu";
 import { CardAtributes } from "@/@Types/Card";
 
@@ -31,8 +31,6 @@ interface CardSearch {
 function formatSearchFromKitsu(data: Array<KitsuAnimeResponse>) {
   const formattedDataList: Array<CardAtributes> = [];
 
-  console.log(data.length);
-
   for (let index = 0; index < data.length; index++) {
     const attributes = data[index].attributes;
 
@@ -56,8 +54,6 @@ function formatSearchFromKitsu(data: Array<KitsuAnimeResponse>) {
     }
   }
 
-  console.log(formattedDataList);
-
   return formattedDataList;
 }
 
@@ -79,8 +75,12 @@ export function SearchContextProvider({
 
   async function search(value: string) {
     try {
+      if (value === "" || value === null) {
+        return;
+      }
+
       setSearchState("loading");
-      const { data } = await api.get(
+      const { data } = await kitsuApi.get(
         `anime?filter[text]=${value}&page[limit]=20&filter[subtype]=TV,ONA`
       );
 
