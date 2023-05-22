@@ -1,8 +1,8 @@
 "use client";
 
-import { useSearch } from "@/context/search.context";
-import { SmallCard } from "@/components/Card/Small";
-import { LargeCard } from "@/components/Card/large";
+import { useSearch } from '@/context/search.context';
+import { SmallCard } from '@/components/Card/Small';
+import { LargeCard } from '@/components/Card/large';
 
 export function CardList() {
   const { cardSearch, layoutCardType } = useSearch();

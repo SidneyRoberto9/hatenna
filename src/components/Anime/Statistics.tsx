@@ -1,8 +1,8 @@
-import { Users2, Trophy, Heart, Gauge } from "lucide-react";
+import { Users2, Trophy, Heart, Gauge } from 'lucide-react';
 
-import { formatNumber } from "@/helper/formater";
-import { RankBadge } from "@/components/Anime/RankBadge";
-import { HatennaAnime } from "@/@Types/Hatenna";
+import { formatNumber } from '@/helper/formater';
+import { RankBadge } from '@/components/Anime/RankBadge';
+import { HatennaAnime } from '@/@Types/Hatenna';
 
 interface StatisticsProps {
   data: HatennaAnime;

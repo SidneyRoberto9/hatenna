@@ -1,5 +1,5 @@
-import { Box } from "@/components/Box";
-import { HatennaAnime } from "@/@Types/Hatenna";
+import { Box } from '@/components/Box';
+import { HatennaAnime } from '@/@Types/Hatenna';
 
 interface HeroBodyProps {
   data: HatennaAnime;

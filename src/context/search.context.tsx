@@ -1,11 +1,11 @@
 "use client";
 
-import React, { ReactNode, useState, useContext, createContext } from "react";
-import { atRule } from "postcss";
+import React, { ReactNode, useState, useContext, createContext } from 'react';
+import { atRule } from 'postcss';
 
-import { kitsuApi } from "@/server/api";
-import { KitsuAnimeResponse } from "@/@Types/Kitsu";
-import { CardAtributes } from "@/@Types/Card";
+import { kitsuApi } from '@/server/api';
+import { KitsuAnimeResponse } from '@/@Types/Kitsu';
+import { CardAtributes } from '@/@Types/Card';
 
 interface SearchContextProviderProps {
   children: ReactNode;

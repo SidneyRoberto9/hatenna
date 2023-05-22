@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
-import { CardAtributes } from "@/@Types/Card";
+import { CardAtributes } from '@/@Types/Card';
 
 interface LargeCardProps {
   attributes: CardAtributes;

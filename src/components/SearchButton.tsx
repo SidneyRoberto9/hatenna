@@ -1,9 +1,8 @@
 "use client";
+import { KeyboardEvent, useRef } from 'react';
+import { StretchHorizontal, Search, LayoutGrid } from 'lucide-react';
 
-import { KeyboardEvent, useRef } from "react";
-import { StretchHorizontal, Search, LayoutGrid } from "lucide-react";
-
-import { useSearch } from "@/context/search.context";
+import { useSearch } from '@/context/search.context';
 
 export function SearchButton() {
   const { search, cardSearch, changeLayoutType } = useSearch();
