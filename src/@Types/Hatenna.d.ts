@@ -1,6 +1,7 @@
 export interface HatennaAnime {
   title: Title;
   image: Image;
+  slug: string;
   duration: string;
   score: string;
   rank: number;
@@ -31,4 +32,9 @@ interface Title {
 interface Image {
   poster: string;
   cover: string;
+}
+
+interface HatennaAnimeData {
+  animeData: HatennaAnime;
+  isFromPrisma: boolean;
 }
