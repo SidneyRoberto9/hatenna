@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(uuid()) @map("_id")
+  name     String?
+  email    String  @unique
+  password String
+}
+
+model HatennaAnime {
+  id         String   @id @default(uuid()) @map("_id")
+  slug       String   @unique
+  title      Title
+  image      Image
+  duration   String
+  score      String
+  rank       Int
+  popularity Int
+  members    Int
+  episodes   Int
+  synopsis   String
+  status     String
+  aired      String
+  season     String
+  year       Int
+  broadcast  String
+  producers  String
+  licensors  String
+  studios    String
+  source     String
+  genres     String[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model FavoriteAnimes {
+  id        String   @id @default(uuid()) @map("_id")
+  userEmail String
+  animeSlug String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+type Title {
+  original  String
+  canonical String
+  synonyms  String
+  english   String
+  japanese  String
+}
+
+type Image {
+  poster String
+  cover  String
+}
