@@ -1,28 +1,43 @@
-import { JikanApi, kitsuApi } from "@/server/api";
-import { convertDuration } from "@/helper/formater";
-import { Kitsu } from "@/@Types/Kitsu";
-import { Jikan } from "@/@Types/Jikan";
-import { HatennaAnime } from "@/@Types/Hatenna";
+import { prisma } from '@/server/prisma';
+import { JikanApi, kitsuApi } from '@/server/api';
+import { convertDuration } from '@/helper/formater';
+import { Kitsu } from '@/@Types/Kitsu';
+import { Jikan } from '@/@Types/Jikan';
+import { HatennaAnimeData, HatennaAnime } from '@/@Types/Hatenna';
 
-export async function getAnimeData(name: string): Promise<HatennaAnime> {
+export async function getAnimeData(slug: string): Promise<HatennaAnimeData> {
+  const prismaAnimeData = await prisma.hatennaAnime.findUnique({
+    where: {
+      slug: slug,
+    },
+  });
+
+  if (prismaAnimeData) {
+    return {
+      animeData: prismaAnimeData,
+      isFromPrisma: true,
+    };
+  }
+
   const { KitsuAnimeData, kitsuAnimeGenres } = await getDataFromKitsuWithSlug(
-    name
+    slug
   );
   const JikanAnimeData = await getDataFromJikanWithName(
     KitsuAnimeData.titles.en_jp
   );
 
   const formattedAnimeData: HatennaAnime = {
+    slug: KitsuAnimeData.slug,
     title: {
-      original: JikanAnimeData.title,
-      canonical: KitsuAnimeData.titles.en_jp,
-      japanese: JikanAnimeData.title_japanese,
-      synonyms: JikanAnimeData.title_synonyms[0],
+      original: JikanAnimeData.title || "",
+      canonical: KitsuAnimeData.titles.en_jp || "",
+      japanese: JikanAnimeData.title_japanese || "",
+      synonyms: JikanAnimeData.title_synonyms[0] || "",
       english: JikanAnimeData.title_english || KitsuAnimeData.titles.en_jp,
     },
     image: {
-      poster: KitsuAnimeData.posterImage.original,
-      cover: KitsuAnimeData.coverImage.original,
+      poster: KitsuAnimeData.posterImage.original || "",
+      cover: KitsuAnimeData.coverImage.original || "",
     },
     duration: convertDuration(
       KitsuAnimeData.totalLength,
@@ -50,7 +65,10 @@ export async function getAnimeData(name: string): Promise<HatennaAnime> {
     source: JikanAnimeData.source,
   };
 
-  return formattedAnimeData;
+  return {
+    animeData: formattedAnimeData,
+    isFromPrisma: false,
+  };
 }
 
 function getKitsuGenres(data: any[]) {
