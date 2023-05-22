@@ -1,8 +1,13 @@
 "use client";
-import { KeyboardEvent, useRef } from 'react';
-import { StretchHorizontal, Search, LayoutGrid } from 'lucide-react';
+import { KeyboardEvent, useRef } from "react";
+import {
+  StretchHorizontal,
+  Search,
+  LayoutList,
+  LayoutGrid,
+} from "lucide-react";
 
-import { useSearch } from '@/context/search.context';
+import { useSearch } from "@/context/search.context";
 
 export function SearchButton() {
   const { search, cardSearch, changeLayoutType } = useSearch();
@@ -56,6 +61,11 @@ export function SearchButton() {
               size={20}
               className="cursor-pointer text-primary-button"
               onClick={() => changeLayoutType("grid")}
+            />
+            <LayoutList
+              size={20}
+              className="cursor-pointer text-primary-button"
+              onClick={() => changeLayoutType("around")}
             />
             <StretchHorizontal
               size={20}

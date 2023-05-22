@@ -1,5 +1,5 @@
-import { Box } from '@/components/Box';
-import { HatennaAnime } from '@/@Types/Hatenna';
+import { Box } from "@/components/Box";
+import { HatennaAnime } from "@/@Types/Hatenna";
 
 interface HeroBodyProps {
   data: HatennaAnime;
@@ -25,7 +25,10 @@ export function HeroBody({ data }: HeroBodyProps) {
 
       <div className="flex flex-wrap gap-1">
         {data.genres.map((genre) => (
-          <Box className="select-none border border-primary-button border-opacity-25 px-2 py-1 text-xs font-medium">
+          <Box
+            key={genre}
+            className="select-none border border-primary-button border-opacity-25 px-2 py-1 text-xs font-medium"
+          >
             {genre}
           </Box>
         ))}
