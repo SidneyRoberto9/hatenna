@@ -1,12 +1,15 @@
-import Image from "next/image";
+import Image from 'next/image';
+import { getServerSession } from 'next-auth';
 
-import { getAnimeData } from "@/server/anime-data";
-import { Box } from "@/components/Box";
-import { Statistics } from "@/components/Anime/Statistics";
-import { Poster } from "@/components/Anime/Poster";
-import { HeroBody } from "@/components/Anime/HeroBody";
-import { FavoriteButton } from "@/components/Anime/FavoriteButton";
-import { DataInfo } from "@/components/Anime/DataInfo";
+import { prisma } from '@/server/prisma';
+import { authOptions } from '@/server/auth';
+import { getAnimeData } from '@/server/anime-data';
+import { Box } from '@/components/Box';
+import { Statistics } from '@/components/Anime/Statistics';
+import { Poster } from '@/components/Anime/Poster';
+import { HeroBody } from '@/components/Anime/HeroBody';
+import { FavoriteButton } from '@/components/Anime/FavoriteButton';
+import { DataInfo } from '@/components/Anime/DataInfo';
 
 interface PageProps {
   params: {
@@ -15,7 +18,22 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const animeData = await getAnimeData(params.slug);
+  const session = await getServerSession(authOptions);
+
+  const { animeData, isFromPrisma } = await getAnimeData(params.slug);
+
+  if (!isFromPrisma) {
+    await prisma.hatennaAnime.create({
+      data: animeData,
+    });
+  }
+
+  const isFavorite = await prisma.favoriteAnimes.findFirst({
+    where: {
+      animeSlug: animeData.slug,
+      userEmail: session?.user?.email as string,
+    },
+  });
 
   return (
     <article className="mb-8 w-full">
@@ -42,9 +60,17 @@ export default async function Page({ params }: PageProps) {
 
         <section className="mt-5 w-96">
           <Box className="flex w-full flex-col gap-3 text-sm">
-            <FavoriteButton isFavorite={false} />
+            {session && (
+              <>
+                <FavoriteButton
+                  isFavorite={!!isFavorite}
+                  slug={animeData.slug}
+                  email={session?.user?.email as string}
+                />
+                <div className="my-2 h-0.5 border-t-0 bg-primary opacity-20"></div>
+              </>
+            )}
 
-            <div className="my-2 h-0.5 border-t-0 bg-primary opacity-20"></div>
             <DataInfo label="status" data={animeData.status} />
             <DataInfo label="aired" data={animeData.aired} />
             <DataInfo
