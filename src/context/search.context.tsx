@@ -1,19 +1,17 @@
 "use client";
 
-import React, { ReactNode, useState, useContext, createContext } from 'react';
-import { atRule } from 'postcss';
+import React, { ReactNode, useState, useContext, createContext } from "react";
+import { atRule } from "postcss";
 
-import { kitsuApi } from '@/server/api';
-import { KitsuAnimeResponse } from '@/@Types/Kitsu';
-import { CardAtributes } from '@/@Types/Card';
+import { kitsuApi } from "@/server/api";
+import { KitsuAnimeResponse } from "@/@Types/Kitsu";
+import { LayoutCartType, CardAtributes } from "@/@Types/Card";
 
 interface SearchContextProviderProps {
   children: ReactNode;
 }
 
 type SearchState = "loading" | "idle" | "error";
-
-type LayoutCartType = "grid" | "stretch";
 
 interface SearchContextType {
   cardSearch: CardSearch;
@@ -62,7 +60,7 @@ const SearchContext = createContext<SearchContextType>({} as SearchContextType);
 export function SearchContextProvider({
   children,
 }: SearchContextProviderProps) {
-  const [layoutType, setLayoutType] = useState<"grid" | "stretch">("grid");
+  const [layoutType, setLayoutType] = useState<LayoutCartType>("grid");
   const [searchState, setSearchState] = useState<SearchState>("idle");
   const [contentSearch, setContentSearch] = useState<CardSearch>({
     cards: [],

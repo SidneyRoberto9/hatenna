@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 
-import { CardAtributes } from '@/@Types/Card';
+import { SmallCardAnimeList, CardAtributes } from "@/@Types/Card";
 
 interface LargeCardProps {
-  attributes: CardAtributes;
+  attributes: CardAtributes | SmallCardAnimeList;
 }
 
 export function SmallCard({ attributes }: LargeCardProps) {
