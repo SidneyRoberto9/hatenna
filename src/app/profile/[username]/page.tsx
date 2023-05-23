@@ -14,13 +14,13 @@ export default async function Page({ params }: PageProps) {
   const animeList = await getFavoriteAnimeList(params.username);
 
   return (
-    <div>
+    <>
       <AnimePageView
         name={params.username}
         poster={getRandomPoster(animeList)}
         animes={animeList}
       />
-    </div>
+    </>
   );
 }
 

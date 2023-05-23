@@ -1,4 +1,4 @@
-import { prisma } from '@/server/prisma';
+import { prisma } from "@/server/prisma";
 
 export async function POST(request: Request) {
   const data = await request.json();
@@ -9,8 +9,6 @@ export async function POST(request: Request) {
       userEmail: data.email,
     },
   });
-
-  console.log(favorite);
 
   if (data.type === "add") {
     if (favorite) {

@@ -1,15 +1,16 @@
-import Image from 'next/image';
-import { getServerSession } from 'next-auth';
+import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { Home } from "lucide-react";
 
-import { prisma } from '@/server/prisma';
-import { authOptions } from '@/server/auth';
-import { getAnimeData } from '@/server/anime-data';
-import { Box } from '@/components/Box';
-import { Statistics } from '@/components/Anime/Statistics';
-import { Poster } from '@/components/Anime/Poster';
-import { HeroBody } from '@/components/Anime/HeroBody';
-import { FavoriteButton } from '@/components/Anime/FavoriteButton';
-import { DataInfo } from '@/components/Anime/DataInfo';
+import { prisma } from "@/server/prisma";
+import { authOptions } from "@/server/auth";
+import { getAnimeData } from "@/server/anime-data";
+import { Box } from "@/components/Box";
+import { Statistics } from "@/components/Anime/Statistics";
+import { Poster } from "@/components/Anime/Poster";
+import { HeroBody } from "@/components/Anime/HeroBody";
+import { FavoriteButton } from "@/components/Anime/FavoriteButton";
+import { DataInfo } from "@/components/Anime/DataInfo";
 
 interface PageProps {
   params: {
@@ -24,7 +25,10 @@ export default async function Page({ params }: PageProps) {
 
   if (!isFromPrisma) {
     await prisma.hatennaAnime.create({
-      data: animeData,
+      data: {
+        ...animeData,
+        slug: animeData.slug,
+      },
     });
   }
 
@@ -40,7 +44,7 @@ export default async function Page({ params }: PageProps) {
       <Poster alt={animeData.title.canonical} image={animeData.image.cover} />
 
       <main className="m-auto flex max-w-5xl gap-4">
-        <section className="relative -mt-20 h-72 w-52 max-lg:m-8">
+        <section className="relative -mt-32 h-72 w-52 max-lg:m-8">
           <Image
             src={animeData.image.poster}
             alt={animeData.title.canonical}
