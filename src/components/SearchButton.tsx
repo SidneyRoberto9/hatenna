@@ -8,9 +8,14 @@ import {
 } from "lucide-react";
 
 import { useSearch } from "@/context/search.context";
+import { ButtonsGrid } from "@/components/ButtonsGrid";
 
 export function SearchButton() {
-  const { search, cardSearch, changeLayoutType } = useSearch();
+  const {
+    search,
+    cardSearch,
+    changeLayoutType: onChangeLayoutCard,
+  } = useSearch();
 
   const searchValueRef = useRef<HTMLInputElement>(null);
   const isIdle = cardSearch.lastSearchValue != null;
@@ -56,23 +61,8 @@ export function SearchButton() {
               {cardSearch.lastSearchValue}
             </h5>
           </span>
-          <div className="mt-1 flex gap-2">
-            <LayoutGrid
-              size={20}
-              className="cursor-pointer text-primary-button"
-              onClick={() => changeLayoutType("grid")}
-            />
-            <LayoutList
-              size={20}
-              className="cursor-pointer text-primary-button"
-              onClick={() => changeLayoutType("around")}
-            />
-            <StretchHorizontal
-              size={20}
-              className="cursor-pointer text-primary-button"
-              onClick={() => changeLayoutType("stretch")}
-            />
-          </div>
+
+          <ButtonsGrid changeLayoutType={onChangeLayoutCard} />
         </div>
       )}
     </div>

@@ -7,6 +7,7 @@ import { HatennaAnime } from "@prisma/client";
 import { SmallCard } from "@/components/Card/Small";
 import { MediumCard } from "@/components/Card/Medium";
 import { LargeCard } from "@/components/Card/large";
+import { ButtonsGrid } from "@/components/ButtonsGrid";
 import { LayoutCartType } from "@/@Types/Card";
 
 interface CardListProps {
@@ -19,7 +20,7 @@ export function AnimeList({ animeList }: CardListProps) {
   const hasAnimes: boolean = animeList.length > 0;
 
   const gridClass: string =
-    "my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5";
+    "my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4";
 
   const stretchClass: string = "my-8 flex flex-col gap-6";
 
@@ -28,22 +29,8 @@ export function AnimeList({ animeList }: CardListProps) {
 
   return (
     <div className="flex flex-col items-center justify-center ">
-      <div className="m-0  mt-3 flex gap-2">
-        <LayoutGrid
-          size={20}
-          className="cursor-pointer text-primary-button"
-          onClick={() => setLayoutCardType("grid")}
-        />
-        <LayoutList
-          size={20}
-          className="cursor-pointer text-primary-button"
-          onClick={() => setLayoutCardType("around")}
-        />
-        <StretchHorizontal
-          size={20}
-          className="cursor-pointer text-primary-button"
-          onClick={() => setLayoutCardType("stretch")}
-        />
+      <div className="m-2">
+        <ButtonsGrid changeLayoutType={setLayoutCardType} />
       </div>
 
       <section className="w-full">
