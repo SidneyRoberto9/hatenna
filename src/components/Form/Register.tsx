@@ -1,13 +1,13 @@
 "use client";
 
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { signIn } from 'next-auth/react';
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { api } from '@/server/api';
-import { Input } from '@/components/Input';
-import { Box } from '@/components/Box';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { api } from "@/server/api";
+import { Input } from "@/components/Form/Input";
+import { Box } from "@/components/Box";
 
 const registerFormSchema = z.object({
   name: z.string().min(3).max(255).nonempty(),

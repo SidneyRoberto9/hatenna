@@ -1,12 +1,13 @@
 "use client";
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '@/components/Input';
-import { Box } from '@/components/Box';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/Form/Input";
+import { Box } from "@/components/Box";
 
 const loginSchema = z.object({
   email: z.string().email().nonempty(),
@@ -17,7 +18,7 @@ type LoginType = z.infer<typeof loginSchema>;
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/profile";
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const {
     register,
@@ -49,7 +50,7 @@ export function LoginForm() {
   }
 
   return (
-    <Box className="flex flex-col items-center justify-center gap-4">
+    <Box className="flex flex-col items-center justify-center gap-4 ">
       <h1 className="text-lg">login</h1>
       <form
         onSubmit={handleSubmit(dataSubmit)}
@@ -83,6 +84,15 @@ export function LoginForm() {
           {loading ? "loading..." : "Sign In"}
         </button>
       </form>
+
+      <div className="h-1 w-full rounded-lg border-t-0 bg-primary/50 opacity-20"></div>
+
+      <Link
+        href={"/register"}
+        className="w-full cursor-pointer rounded-md bg-primary-button p-2 text-center text-white hover:bg-Accent"
+      >
+        Sign Up
+      </Link>
     </Box>
   );
 }
