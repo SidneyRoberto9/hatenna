@@ -1,9 +1,9 @@
-import { prisma } from '@/server/prisma';
-import { JikanApi, kitsuApi } from '@/server/api';
-import { convertDuration } from '@/helper/formater';
-import { Kitsu } from '@/@Types/Kitsu';
-import { Jikan } from '@/@Types/Jikan';
-import { HatennaAnimeData, HatennaAnime } from '@/@Types/Hatenna';
+import { prisma } from "@/server/prisma";
+import { JikanApi, kitsuApi } from "@/server/api";
+import { convertDuration } from "@/helper/formater";
+import { Kitsu } from "@/@Types/Kitsu";
+import { Jikan } from "@/@Types/Jikan";
+import { HatennaAnimeData, HatennaAnime } from "@/@Types/Hatenna";
 
 export async function getAnimeData(slug: string): Promise<HatennaAnimeData> {
   const prismaAnimeData = await prisma.hatennaAnime.findUnique({
@@ -22,8 +22,9 @@ export async function getAnimeData(slug: string): Promise<HatennaAnimeData> {
   const { KitsuAnimeData, kitsuAnimeGenres } = await getDataFromKitsuWithSlug(
     slug
   );
+
   const JikanAnimeData = await getDataFromJikanWithName(
-    KitsuAnimeData.titles.en_jp
+    KitsuAnimeData.titles.ja_jp || KitsuAnimeData.titles.en_jp
   );
 
   const formattedAnimeData: HatennaAnime = {
