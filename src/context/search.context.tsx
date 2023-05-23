@@ -32,6 +32,8 @@ function formatSearchFromKitsu(data: Array<KitsuAnimeResponse>) {
   for (let index = 0; index < data.length; index++) {
     const attributes = data[index].attributes;
 
+    console.log(attributes);
+
     try {
       const formattedData: CardAtributes = {
         title: attributes.canonicalTitle,
@@ -41,8 +43,18 @@ function formatSearchFromKitsu(data: Array<KitsuAnimeResponse>) {
         startDate: attributes.startDate,
         endDate: attributes.endDate,
         status: attributes.status,
-        image: attributes.posterImage.original ?? "",
-        post_image: attributes.coverImage.original ?? "",
+        image:
+          attributes.posterImage.original ||
+          attributes.posterImage.large ||
+          attributes.posterImage.small ||
+          "",
+        post_image:
+          attributes.coverImage === null
+            ? "https://wallpapercave.com/wp/wp5313865.jpg"
+            : attributes.coverImage.original ||
+              attributes.coverImage.large ||
+              attributes.coverImage.small ||
+              "https://wallpapercave.com/wp/wp5313865.jpg",
         episodeCount: attributes.episodeCount,
       };
 
