@@ -11,7 +11,6 @@ export function LargeCard({ attributes }: LargeCardProps) {
   return (
     <Link
       href={`/anime/${attributes.slug}`}
-      prefetch={false}
       className="flex h-60 w-full overflow-hidden rounded-lg shadow-lg"
     >
       <div className="relative h-60 w-full">

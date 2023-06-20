@@ -1,6 +1,8 @@
 "use client";
 import { z } from "zod";
+import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -29,9 +31,10 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const loading: boolean = isSubmitting;
+  const [isLoading, setIsLoading] = useState<boolean>(isSubmitting);
 
   async function dataSubmit(content: LoginType) {
+    setIsLoading(true);
     const signInResponse = await signIn("credentials", {
       redirect: false,
       email: content.email,
@@ -46,11 +49,17 @@ export function LoginForm() {
         type: "manual",
         message: "invalid email or password",
       });
+
+      toast.error("invalid email or password", {
+        duration: 3000,
+      });
     }
+    setIsLoading(false);
   }
 
   return (
     <Box className="flex flex-col items-center justify-center gap-4 ">
+      <Toaster position="top-center" />
       <h1 className="text-lg">login</h1>
       <form
         onSubmit={handleSubmit(dataSubmit)}
@@ -75,13 +84,13 @@ export function LoginForm() {
 
         <button
           className={`${
-            loading ? "bg-gray-300" : "bg-primary-button hover:bg-Accent"
+            isLoading ? "bg-gray-300" : "bg-primary-button hover:bg-Accent"
           } mt-2 rounded-md p-2 text-white ${
-            loading ? "cursor-not-allowed" : "cursor-pointer"
+            isLoading ? "cursor-not-allowed" : "cursor-pointer"
           }`}
-          disabled={loading}
+          disabled={isLoading}
         >
-          {loading ? "loading..." : "Sign In"}
+          {isLoading ? "loading..." : "Sign In"}
         </button>
       </form>
 

@@ -5,6 +5,7 @@ import { Home } from "lucide-react";
 import { prisma } from "@/server/prisma";
 import { authOptions } from "@/server/auth";
 import { getAnimeData } from "@/server/anime-data";
+import { Header } from "@/components/Header/Header";
 import { Box } from "@/components/Box";
 import { Statistics } from "@/components/Anime/Statistics";
 import { Poster } from "@/components/Anime/Poster";
@@ -41,6 +42,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <article className="mb-8 w-full">
+      <Header session={session} />
       <Poster alt={animeData.title.canonical} image={animeData.image.cover} />
 
       <main className="m-auto flex max-w-5xl gap-4">
@@ -50,7 +52,7 @@ export default async function Page({ params }: PageProps) {
             alt={animeData.title.canonical}
             width={1920}
             height={1080}
-            priority
+            priority={true}
             className="h-full w-full rounded-sm object-cover shadow-lg"
           />
           <Statistics data={animeData} />

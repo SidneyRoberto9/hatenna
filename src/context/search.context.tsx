@@ -32,8 +32,6 @@ function formatSearchFromKitsu(data: Array<KitsuAnimeResponse>) {
   for (let index = 0; index < data.length; index++) {
     const attributes = data[index].attributes;
 
-    console.log(attributes);
-
     try {
       const formattedData: CardAtributes = {
         title: attributes.canonicalTitle,

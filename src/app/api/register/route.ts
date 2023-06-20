@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import { NextResponse } from 'next/server';
-import { hash } from 'bcryptjs';
+import { z } from "zod";
+import { NextResponse } from "next/server";
+import { hash } from "bcryptjs";
 
-import { prisma } from '@/server/prisma';
+import { prisma } from "@/server/prisma";
 
 const registerFormSchema = z.object({
   name: z.string().min(3).max(255).nonempty(),
@@ -20,11 +20,25 @@ export async function POST(req: Request) {
   });
 
   if (existing_user) {
-    const error: ResponseError = {
-      message: "User already exists",
-    };
+    const existing_user_with_name = await prisma.user.findUnique({
+      where: {
+        name: name,
+      },
+    });
 
-    return NextResponse.json({ error }, { status: 200 });
+    if (existing_user_with_name) {
+      const error: ResponseError = {
+        message: "Username already in use",
+      };
+
+      return NextResponse.json(error, { status: 500 });
+    } else {
+      const error: ResponseError = {
+        message: "Email already in use",
+      };
+
+      return NextResponse.json(error, { status: 500 });
+    }
   }
 
   const hashed_password = await hash(password, 12);

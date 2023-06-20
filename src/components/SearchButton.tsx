@@ -1,5 +1,5 @@
 "use client";
-import { KeyboardEvent, useRef } from "react";
+import { KeyboardEvent, useState, useRef } from "react";
 import {
   StretchHorizontal,
   Search,
@@ -17,23 +17,31 @@ export function SearchButton() {
     changeLayoutType: onChangeLayoutCard,
   } = useSearch();
 
+  const [isSearch, setIsSearch] = useState<boolean>(false);
+
   const searchValueRef = useRef<HTMLInputElement>(null);
   const isIdle = cardSearch.lastSearchValue != null;
 
   function handleSearch() {
     search(searchValueRef.current?.value as string);
     searchValueRef.current!.value = "";
+    setIsSearch(true);
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       search(searchValueRef.current?.value as string);
       searchValueRef.current!.value = "";
+      setIsSearch(true);
     }
   }
 
+  const isSearchClass = isSearch && "-mt-40";
+
   return (
-    <div className="relative h-16 w-96 ">
+    <div
+      className={`relative h-16 w-192 transition-all duration-500 ${isSearchClass}`}
+    >
       <label htmlFor="search" className="my-1 text-sm">
         Try out Search for your Favorite Anime
       </label>

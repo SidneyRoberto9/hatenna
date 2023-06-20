@@ -24,13 +24,13 @@ export async function getAnimeData(slug: string): Promise<HatennaAnimeData> {
   );
 
   const JikanAnimeData = await getDataFromJikanWithName(
-    KitsuAnimeData.titles.ja_jp || KitsuAnimeData.titles.en_jp
+    KitsuAnimeData.titles.en_jp
   );
 
   const formattedAnimeData: HatennaAnime = {
     slug: KitsuAnimeData.slug,
     title: {
-      original: JikanAnimeData.title || "",
+      original: JikanAnimeData?.title || "",
       canonical: KitsuAnimeData.titles.en_jp || "",
       japanese: JikanAnimeData.title_japanese || "",
       synonyms: JikanAnimeData.title_synonyms[0] || "",
@@ -77,6 +77,8 @@ function getKitsuGenres(data: any[]) {
     return [];
   }
 
+  const uniqueGenres: string[] = [];
+
   const genres: string[] = data
     .map((included) => {
       if (included.type === "genres") {
@@ -87,7 +89,13 @@ function getKitsuGenres(data: any[]) {
     })
     .filter((genre) => genre !== undefined || genre !== null);
 
-  return genres;
+  genres.forEach((genre) => {
+    if (!uniqueGenres.includes(genre)) {
+      uniqueGenres.push(genre);
+    }
+  });
+
+  return uniqueGenres;
 }
 
 async function getDataFromKitsuWithSlug(slug: string) {

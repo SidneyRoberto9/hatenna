@@ -1,7 +1,9 @@
 "use client";
 
 import { z } from "zod";
+import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,21 +28,28 @@ export function RegisterForm() {
     resolver: zodResolver(registerFormSchema),
   });
 
-  const loading: boolean = isSubmitting;
+  const [isLoading, setIsLoading] = useState<boolean>(isSubmitting);
 
   async function dataSubmit(content: RegisterFormType) {
-    const { data, status } = await api.post("/register", content);
-
-    if (status == 500) {
-      alert(data.error.message);
-      return;
-    }
-
-    signIn(undefined, { callbackUrl: "/" });
+    setIsLoading(true);
+    api
+      .post("/register", content)
+      .then(() => {
+        signIn(undefined, { callbackUrl: "/" });
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message, {
+          duration: 3000,
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
     <Box className="flex flex-col items-center justify-center gap-4">
+      <Toaster position="top-center" />
       <h1 className="text-lg">Register</h1>
       <form
         onSubmit={handleSubmit(dataSubmit)}
@@ -73,13 +82,13 @@ export function RegisterForm() {
 
         <button
           className={`${
-            loading ? "bg-gray-300" : "bg-primary-button hover:bg-Accent"
+            isLoading ? "bg-gray-300" : "bg-primary-button hover:bg-Accent"
           } mt-2 rounded-md p-2 text-white ${
-            loading ? "cursor-not-allowed" : "cursor-pointer"
+            isLoading ? "cursor-not-allowed" : "cursor-pointer"
           }`}
-          disabled={loading}
+          disabled={isLoading}
         >
-          {loading ? "loading..." : "Register"}
+          {isLoading ? "loading..." : "Register"}
         </button>
       </form>
     </Box>

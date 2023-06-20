@@ -13,7 +13,6 @@ export function MediumCard({ attributes }: MediumCardProps) {
   return (
     <Link
       href={`/anime/${attributes.slug}`}
-      prefetch={false}
       className="flex h-72 w-118 max-w-5xl overflow-hidden rounded-md bg-secondary text-primary shadow-lg"
     >
       <div className="relative h-72 w-48">

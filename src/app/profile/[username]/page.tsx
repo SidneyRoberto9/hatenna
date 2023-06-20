@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 
 import { HatennaAnime } from "@prisma/client";
 import { prisma } from "@/server/prisma";
+import { authOptions } from "@/server/auth";
 import { AnimePageView } from "@/components/AnimeList/PageView";
 
 interface PageProps {
