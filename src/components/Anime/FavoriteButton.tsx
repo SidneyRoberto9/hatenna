@@ -5,14 +5,8 @@ import { useState } from 'react';
 import { api } from '@/server/api';
 import { SmallSpinner } from '@/components/SmallSpinner';
 
-interface FavoriteButtonProps {
-  isFavorite: boolean;
-  slug: string;
-  email: string;
-}
-
 const Button = w.button(
-  'flex items-center justify-center rounded-lg border  p-2  transition-all duration-500',
+  'flex items-center justify-center rounded-lg border p-2 transition-all duration-500',
   {
     variants: {
       state: (yes: boolean) =>
@@ -22,6 +16,12 @@ const Button = w.button(
     },
   },
 );
+
+interface FavoriteButtonProps {
+  isFavorite: boolean;
+  slug: string;
+  email: string;
+}
 
 export function FavoriteButton({ isFavorite: initialState, slug, email }: FavoriteButtonProps) {
   const [isFavorite, setIsFavorite] = useState<boolean>(initialState);

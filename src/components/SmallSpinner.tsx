@@ -3,7 +3,7 @@ export function SmallSpinner() {
     <div role="status">
       <svg
         aria-hidden="true"
-        className="h-5 w-5 animate-spin fill-primary-button text-gray-200 "
+        className="h-5 w-5 animate-spin fill-primary-button text-gray-200"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
