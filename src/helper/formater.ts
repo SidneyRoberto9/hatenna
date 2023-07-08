@@ -5,10 +5,20 @@ export function convertDuration(min: number, minEach: number): string {
 }
 
 export function formatNumber(nun: number): string {
-  const model = new Intl.NumberFormat("en-US", {
-    style: "decimal",
-    localeMatcher: "best fit",
+  const model = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    localeMatcher: 'best fit',
   });
 
   return model.format(nun);
+}
+
+export function removeListDuplicates(arr: any[]) {
+  let unique: any[] = [];
+  arr.forEach((element) => {
+    if (!unique.includes(element)) {
+      unique.push(element);
+    }
+  });
+  return unique;
 }

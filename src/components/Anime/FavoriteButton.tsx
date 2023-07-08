@@ -1,7 +1,7 @@
 'use client';
 import { w } from 'windstitch';
-import { useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
 import { api } from '@/server/api';
 import { SmallSpinner } from '@/components/SmallSpinner';
 
@@ -17,6 +17,15 @@ const Button = w.button(
   },
 );
 
+const isFavoriteFetch = async (slug: string, email: string): Promise<boolean> => {
+  const { data } = await api.post('/favorite', {
+    slug,
+    email,
+  });
+
+  return data.isFavorite;
+};
+
 interface FavoriteButtonProps {
   isFavorite: boolean;
   slug: string;
@@ -24,30 +33,27 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ isFavorite: initialState, slug, email }: FavoriteButtonProps) {
-  const [isFavorite, setIsFavorite] = useState<boolean>(initialState);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {
+    data: isFavorite,
+    refetch,
+    isFetching,
+  } = useQuery({
+    queryKey: ['isFavorite', slug],
+    queryFn: () => isFavoriteFetch(slug, email),
+    enabled: false,
+    cacheTime: 0,
+    initialData: initialState,
+  });
 
   const buttonText = isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
 
   async function handleFavorite() {
-    try {
-      setIsLoading(true);
-      const { data } = await api.post('/favorite', {
-        slug,
-        email,
-        type: isFavorite ? 'remove' : 'add',
-      });
-      setIsFavorite(data.isFavorite);
-    } catch (error) {
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-    }
+    await refetch();
   }
 
   return (
     <Button state={isFavorite} onClick={handleFavorite}>
-      {isLoading ? <SmallSpinner /> : buttonText}
+      {isFetching ? <SmallSpinner /> : buttonText}
     </Button>
   );
 }
