@@ -805,16 +805,6 @@ preact@^10.6.3:
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.14.1.tgz#1e15ef6a09e241a48d12c872b90557914b03abac"
   integrity sha512-4XDSnUisk3YFBb3p9WeKeH1mKoxdFUsaXcvxs9wlpYR1wax/TWJVqhwmIWbByX0h7jMEJH6Zc5J6jqc58FKaNQ==
 
-prettier-plugin-tailwindcss@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.3.0.tgz#8299b307c7f6467f52732265579ed9375be6c818"
-  integrity sha512-009/Xqdy7UmkcTBpwlq7jsViDqXAYSOMLDrHAdTMlVZOrKfM2o9Ci7EMWTMZ7SkKBFTG04UM9F9iM2+4i6boDA==
-
-prettier@^2.8.8:
-  version "2.8.8"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.8.tgz#e8c5d7e98a4305ffe3de2e1fc4aca1a71c28b1da"
-  integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
-
 pretty-format@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
@@ -1028,6 +1018,11 @@ uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
+windstitch@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/windstitch/-/windstitch-0.3.0.tgz#ebb97d13098fca51286feee5b3103c681ad8b61d"
+  integrity sha512-xn48NPYKCcj8QHfn2/sQGF/zWRuHfSweRkUnSQnL6Szoyp7L2D6b+XbjlQY8FW8BIzc2Rq3ltx0Z5KpfFLyJkw==
 
 wrappy@1:
   version "1.0.2"
