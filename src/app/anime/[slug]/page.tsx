@@ -1,17 +1,16 @@
-import Image from "next/image";
-import { getServerSession } from "next-auth";
-import { Home } from "lucide-react";
+import Image from 'next/image';
+import { getServerSession } from 'next-auth';
 
-import { prisma } from "@/server/prisma";
-import { authOptions } from "@/server/auth";
-import { getAnimeData } from "@/server/anime-data";
-import { Header } from "@/components/Header/Header";
-import { Box } from "@/components/Box";
-import { Statistics } from "@/components/Anime/Statistics";
-import { Poster } from "@/components/Anime/Poster";
-import { HeroBody } from "@/components/Anime/HeroBody";
-import { FavoriteButton } from "@/components/Anime/FavoriteButton";
-import { DataInfo } from "@/components/Anime/DataInfo";
+import { prisma } from '@/server/prisma';
+import { authOptions } from '@/server/auth';
+import { getAnimeData } from '@/server/anime-data';
+import { Header } from '@/components/Header/Header';
+import { Box } from '@/components/Box';
+import { Statistics } from '@/components/Anime/Statistics';
+import { Poster } from '@/components/Anime/Poster';
+import { HeroBody } from '@/components/Anime/HeroBody';
+import { FavoriteButton } from '@/components/Anime/FavoriteButton';
+import { DataInfo } from '@/components/Anime/DataInfo';
 
 interface PageProps {
   params: {
@@ -79,10 +78,7 @@ export default async function Page({ params }: PageProps) {
 
             <DataInfo label="status" data={animeData.status} />
             <DataInfo label="aired" data={animeData.aired} />
-            <DataInfo
-              label="aired"
-              data={`${animeData.season} - ${animeData.year}`}
-            />
+            <DataInfo label="aired" data={`${animeData.season} - ${animeData.year}`} />
             <DataInfo label="broadcast" data={animeData.broadcast} />
             <DataInfo label="producers" data={animeData.producers} />
             <DataInfo label="licensors" data={animeData.licensors} />
