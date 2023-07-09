@@ -40,8 +40,8 @@ export default async function Page({ params }: PageProps) {
   });
 
   return (
-    <article className="mb-8 w-full">
-      <Header session={session} />
+    <div className="mb-8 w-full">
+      <Header session={session} shadow />
       <Poster alt={animeData.title.canonical} image={animeData.image.cover} />
 
       <main className="m-auto flex max-w-5xl gap-4">
@@ -87,6 +87,6 @@ export default async function Page({ params }: PageProps) {
           </Box>
         </section>
       </main>
-    </article>
+    </div>
   );
 }
