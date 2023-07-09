@@ -1,5 +1,4 @@
 'use client';
-
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/styles/Button';
 import { api } from '@/server/api';
@@ -27,7 +26,7 @@ export function FavoriteButton({ isFavorite: initialState, slug, email }: Favori
   }
 
   return (
-    <Button isFavorite={data} onClick={handleFavorite}>
+    <Button favorite={data} onClick={handleFavorite}>
       {isFetching ? <SmallSpinner /> : buttonText}
     </Button>
   );
