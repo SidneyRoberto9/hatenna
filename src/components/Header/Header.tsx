@@ -1,3 +1,4 @@
+import { signOut } from 'next-auth/react';
 import { Session } from 'next-auth';
 
 import { LinkNavigation } from '@/components/NavigationLink';
@@ -12,7 +13,7 @@ export function Header({ session, shadow = false }: HeaderProps) {
   return (
     <div className={shadow ? 'w-full mx-auto shadow-lg' : 'w-full mx-auto '}>
       <header
-        className={`container mx-auto flex items-center p-2 h-16 w-256 ${
+        className={`container mx-auto flex items-center p-2 h-16 w-11/12 lg:w-256 ${
           shadow ? 'border-b-2' : ''
         }`}>
         <LinkNavigation url="/" label="Hatenna" removeCache />

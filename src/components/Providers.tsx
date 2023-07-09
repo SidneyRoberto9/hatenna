@@ -9,6 +9,7 @@ import { SearchContextProvider } from '@/context/search.context';
 interface ProvidersProps {
   children: ReactNode;
 }
+
 const queryClient = new QueryClient();
 
 export function Providers({ children }: ProvidersProps) {

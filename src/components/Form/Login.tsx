@@ -1,15 +1,18 @@
-"use client";
-import { z } from "zod";
-import toast, { Toaster } from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
+'use client';
+import { z } from 'zod';
+import toast, { Toaster } from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { EyeOff, Eye } from 'lucide-react';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/Form/Input";
-import { Box } from "@/components/Box";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Divider } from '@/styles/Divider';
+import { Button } from '@/styles/Button';
+import { Box } from '@/styles/Box';
+import { Input } from '@/components/Form/Input';
 
 const loginSchema = z.object({
   email: z.string().email().nonempty(),
@@ -20,7 +23,7 @@ type LoginType = z.infer<typeof loginSchema>;
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const {
     register,
@@ -32,10 +35,11 @@ export function LoginForm() {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(isSubmitting);
+  const [togglePassword, setTogglePassword] = useState<boolean>(false);
 
   async function dataSubmit(content: LoginType) {
     setIsLoading(true);
-    const signInResponse = await signIn("credentials", {
+    const signInResponse = await signIn('credentials', {
       redirect: false,
       email: content.email,
       password: content.password,
@@ -45,12 +49,12 @@ export function LoginForm() {
     if (!signInResponse?.error) {
       router.push(callbackUrl);
     } else {
-      setError("root", {
-        type: "manual",
-        message: "invalid email or password",
+      setError('root', {
+        type: 'manual',
+        message: 'invalid email or password',
       });
 
-      toast.error("invalid email or password", {
+      toast.error('invalid email or password', {
         duration: 3000,
       });
     }
@@ -58,15 +62,12 @@ export function LoginForm() {
   }
 
   return (
-    <Box className="flex flex-col items-center justify-center gap-4 ">
+    <Box className="flex flex-col items-center justify-center gap-2 rounded-2xl">
       <Toaster position="top-center" />
-      <h1 className="text-lg">login</h1>
-      <form
-        onSubmit={handleSubmit(dataSubmit)}
-        className="flex w-96 flex-col gap-1 lg:w-[500px]"
-      >
+      <h1 className="text-2xl ">login</h1>
+      <form onSubmit={handleSubmit(dataSubmit)} className="flex w-118  flex-col gap-1 px-2">
         <Input
-          inputProps={register("email")}
+          inputProps={register('email')}
           label="Email"
           name="email"
           placeholder="Enter your email"
@@ -74,34 +75,31 @@ export function LoginForm() {
         />
 
         <Input
-          inputProps={register("password")}
+          inputProps={register('password')}
           label="Password"
           name="password"
           placeholder="Enter your password"
-          type="password"
+          type={togglePassword ? 'text' : 'password'}
           error={errors.password?.message}
+          rightIcon={togglePassword ? Eye : EyeOff}
+          onRightIconClick={() => setTogglePassword(!togglePassword)}
         />
 
-        <button
-          className={`${
-            isLoading ? "bg-gray-300" : "bg-primary-button hover:bg-Accent"
-          } mt-2 rounded-md p-2 text-white ${
-            isLoading ? "cursor-not-allowed" : "cursor-pointer"
-          }`}
-          disabled={isLoading}
-        >
-          {isLoading ? "loading..." : "Sign In"}
-        </button>
+        <Button form={isLoading ? 'loading' : 'stock'} disabled={isLoading}>
+          {isLoading ? 'loading...' : 'Sign In'}
+        </Button>
       </form>
 
-      <div className="h-1 w-full rounded-lg border-t-0 bg-primary/50 opacity-20"></div>
+      <Divider opacity={50} />
 
-      <Link
-        href={"/register"}
-        className="w-full cursor-pointer rounded-md bg-primary-button p-2 text-center text-white hover:bg-Accent"
-      >
-        Sign Up
-      </Link>
+      <div className="flex items-center justify-center gap-2 w-full">
+        <Button as={Link} href={'/'} link className="w-full">
+          Hatenna
+        </Button>
+        <Button as={Link} href={'/register'} redirect className="w-full  durat">
+          Sign Up
+        </Button>
+      </div>
     </Box>
   );
 }

@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 
+import { Divider } from '@/styles/Divider';
+import { Box } from '@/styles/Box';
 import { prisma } from '@/server/prisma';
 import { authOptions } from '@/server/auth';
 import { getAnimeData } from '@/server/anime-data';
 import { Header } from '@/components/Header/Header';
-import { Box } from '@/components/Box';
 import { Statistics } from '@/components/Anime/Statistics';
 import { Poster } from '@/components/Anime/Poster';
 import { HeroBody } from '@/components/Anime/HeroBody';
@@ -38,6 +39,8 @@ export default async function Page({ params }: PageProps) {
       userEmail: session?.user?.email as string,
     },
   });
+
+  const airedDate: string = `${animeData.season} - ${animeData.year}`;
 
   return (
     <div className="mb-8 w-full">
@@ -72,13 +75,13 @@ export default async function Page({ params }: PageProps) {
                   slug={animeData.slug}
                   email={session?.user?.email as string}
                 />
-                <div className="my-2 h-0.5 border-t-0 bg-primary opacity-20"></div>
+                <Divider />
               </>
             )}
 
             <DataInfo label="status" data={animeData.status} />
             <DataInfo label="aired" data={animeData.aired} />
-            <DataInfo label="aired" data={`${animeData.season} - ${animeData.year}`} />
+            <DataInfo label="aired" data={airedDate} />
             <DataInfo label="broadcast" data={animeData.broadcast} />
             <DataInfo label="producers" data={animeData.producers} />
             <DataInfo label="licensors" data={animeData.licensors} />

@@ -1,21 +1,12 @@
-"use client";
-import { KeyboardEvent, useState, useRef } from "react";
-import {
-  StretchHorizontal,
-  Search,
-  LayoutList,
-  LayoutGrid,
-} from "lucide-react";
+'use client';
+import { KeyboardEvent, useState, useRef } from 'react';
+import { Search } from 'lucide-react';
 
-import { useSearch } from "@/context/search.context";
-import { ButtonsGrid } from "@/components/ButtonsGrid";
+import { useSearch } from '@/context/search.context';
+import { ButtonsGrid } from '@/components/ButtonsGrid';
 
 export function SearchButton() {
-  const {
-    search,
-    cardSearch,
-    changeLayoutType: onChangeLayoutCard,
-  } = useSearch();
+  const { search, cardSearch, changeLayoutType: onChangeLayoutCard } = useSearch();
 
   const [isSearch, setIsSearch] = useState<boolean>(false);
 
@@ -24,24 +15,22 @@ export function SearchButton() {
 
   function handleSearch() {
     search(searchValueRef.current?.value as string);
-    searchValueRef.current!.value = "";
+    searchValueRef.current!.value = '';
     setIsSearch(true);
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       search(searchValueRef.current?.value as string);
-      searchValueRef.current!.value = "";
+      searchValueRef.current!.value = '';
       setIsSearch(true);
     }
   }
 
-  const isSearchClass = isSearch && "-mt-40";
+  const isSearchClass = isSearch && '-mt-40';
 
   return (
-    <div
-      className={`relative h-16 w-192 transition-all duration-500 ${isSearchClass}`}
-    >
+    <div className={`relative h-16 w-11/12 lg:w-256 transition-all duration-500 ${isSearchClass}`}>
       <label htmlFor="search" className="my-1 text-sm">
         Try out Search for your Favorite Anime
       </label>
@@ -55,7 +44,7 @@ export function SearchButton() {
         ref={searchValueRef}
       />
       <Search
-        className="absolute right-2 top-9 cursor-pointer text-primary-button"
+        className="absolute right-2.5 top-9 cursor-pointer text-primary-button"
         size={24}
         onClick={handleSearch}
       />
@@ -65,9 +54,7 @@ export function SearchButton() {
           <span className="flex text-sm ">
             <p> Last Search:</p>
 
-            <h5 className="ml-2 text-primary-button">
-              {cardSearch.lastSearchValue}
-            </h5>
+            <h5 className="ml-2 text-primary-button">{cardSearch.lastSearchValue}</h5>
           </span>
 
           <ButtonsGrid changeLayoutType={onChangeLayoutCard} />

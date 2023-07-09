@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
-import { SmallCardAnimeList, CardAtributes } from "@/@Types/Card";
+import { SmallCardAnimeList, CardAtributes } from '@/@Types/Card';
 
 interface LargeCardProps {
   attributes: CardAtributes | SmallCardAnimeList;
@@ -11,8 +11,7 @@ export function SmallCard({ attributes }: LargeCardProps) {
   return (
     <Link
       href={`/anime/${attributes.slug}`}
-      className="flex h-72 w-48 max-w-5xl overflow-hidden rounded-md shadow-lg"
-    >
+      className="flex h-72 w-48 max-w-5xl overflow-hidden rounded-md shadow-lg">
       <div className="relative h-72 w-full">
         <Image
           src={attributes.image}

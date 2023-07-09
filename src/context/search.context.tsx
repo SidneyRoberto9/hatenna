@@ -1,17 +1,16 @@
-"use client";
+'use client';
 
-import React, { ReactNode, useState, useContext, createContext } from "react";
-import { atRule } from "postcss";
+import React, { ReactNode, useState, useContext, createContext } from 'react';
 
-import { kitsuApi } from "@/server/api";
-import { KitsuAnimeResponse } from "@/@Types/Kitsu";
-import { LayoutCartType, CardAtributes } from "@/@Types/Card";
+import { kitsuApi } from '@/server/api';
+import { KitsuAnimeResponse } from '@/@Types/Kitsu';
+import { LayoutCartType, CardAtributes } from '@/@Types/Card';
 
 interface SearchContextProviderProps {
   children: ReactNode;
 }
 
-type SearchState = "loading" | "idle" | "error";
+type SearchState = 'loading' | 'idle' | 'error';
 
 interface SearchContextType {
   cardSearch: CardSearch;
@@ -45,14 +44,14 @@ function formatSearchFromKitsu(data: Array<KitsuAnimeResponse>) {
           attributes.posterImage.original ||
           attributes.posterImage.large ||
           attributes.posterImage.small ||
-          "",
+          '',
         post_image:
           attributes.coverImage === null
-            ? "https://wallpapercave.com/wp/wp5313865.jpg"
+            ? 'https://wallpapercave.com/wp/wp5313865.jpg'
             : attributes.coverImage.original ||
               attributes.coverImage.large ||
               attributes.coverImage.small ||
-              "https://wallpapercave.com/wp/wp5313865.jpg",
+              'https://wallpapercave.com/wp/wp5313865.jpg',
         episodeCount: attributes.episodeCount,
       };
 
@@ -67,11 +66,9 @@ function formatSearchFromKitsu(data: Array<KitsuAnimeResponse>) {
 
 const SearchContext = createContext<SearchContextType>({} as SearchContextType);
 
-export function SearchContextProvider({
-  children,
-}: SearchContextProviderProps) {
-  const [layoutType, setLayoutType] = useState<LayoutCartType>("grid");
-  const [searchState, setSearchState] = useState<SearchState>("idle");
+export function SearchContextProvider({ children }: SearchContextProviderProps) {
+  const [layoutType, setLayoutType] = useState<LayoutCartType>('grid');
+  const [searchState, setSearchState] = useState<SearchState>('idle');
   const [contentSearch, setContentSearch] = useState<CardSearch>({
     cards: [],
     lastSearchValue: null,
@@ -83,13 +80,13 @@ export function SearchContextProvider({
 
   async function search(value: string) {
     try {
-      if (value === "" || value === null) {
+      if (value === '' || value === null) {
         return;
       }
 
-      setSearchState("loading");
+      setSearchState('loading');
       const { data } = await kitsuApi.get(
-        `anime?filter[text]=${value}&page[limit]=20&filter[subtype]=TV,ONA`
+        `anime?filter[text]=${value}&page[limit]=20&filter[subtype]=TV,ONA`,
       );
 
       const formattedData: CardSearch = {
@@ -99,9 +96,9 @@ export function SearchContextProvider({
 
       setContentSearch(formattedData);
 
-      setSearchState("idle");
+      setSearchState('idle');
     } catch (error) {
-      setSearchState("error");
+      setSearchState('error');
     }
   }
 
@@ -113,8 +110,7 @@ export function SearchContextProvider({
         search,
         layoutCardType: layoutType,
         changeLayoutType,
-      }}
-    >
+      }}>
       {children}
     </SearchContext.Provider>
   );

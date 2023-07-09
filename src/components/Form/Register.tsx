@@ -1,15 +1,18 @@
-"use client";
+'use client';
 
-import { z } from "zod";
-import toast, { Toaster } from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { z } from 'zod';
+import toast, { Toaster } from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { api } from "@/server/api";
-import { Input } from "@/components/Form/Input";
-import { Box } from "@/components/Box";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Divider } from '@/styles/Divider';
+import { Button } from '@/styles/Button';
+import { Box } from '@/styles/Box';
+import { api } from '@/server/api';
+import { Input } from '@/components/Form/Input';
 
 const registerFormSchema = z.object({
   name: z.string().min(3).max(255).nonempty(),
@@ -33,9 +36,9 @@ export function RegisterForm() {
   async function dataSubmit(content: RegisterFormType) {
     setIsLoading(true);
     api
-      .post("/register", content)
+      .post('/register', content)
       .then(() => {
-        signIn(undefined, { callbackUrl: "/" });
+        signIn(undefined, { callbackUrl: '/' });
       })
       .catch((err) => {
         toast.error(err.response.data.message, {
@@ -48,15 +51,12 @@ export function RegisterForm() {
   }
 
   return (
-    <Box className="flex flex-col items-center justify-center gap-4">
+    <Box className="flex flex-col items-center justify-center gap-2">
       <Toaster position="top-center" />
       <h1 className="text-lg">Register</h1>
-      <form
-        onSubmit={handleSubmit(dataSubmit)}
-        className="flex w-96 flex-col gap-1 lg:w-[500px]"
-      >
+      <form onSubmit={handleSubmit(dataSubmit)} className="flex w-96 flex-col gap-1 lg:w-[500px]">
         <Input
-          inputProps={register("name")}
+          inputProps={register('name')}
           label="Name"
           name="name"
           placeholder="Enter your name"
@@ -64,7 +64,7 @@ export function RegisterForm() {
         />
 
         <Input
-          inputProps={register("email")}
+          inputProps={register('email')}
           label="Email"
           name="email"
           placeholder="Enter your email"
@@ -72,7 +72,7 @@ export function RegisterForm() {
         />
 
         <Input
-          inputProps={register("password")}
+          inputProps={register('password')}
           label="Password"
           name="password"
           placeholder="Enter your password"
@@ -80,17 +80,21 @@ export function RegisterForm() {
           error={errors.password?.message}
         />
 
-        <button
-          className={`${
-            isLoading ? "bg-gray-300" : "bg-primary-button hover:bg-Accent"
-          } mt-2 rounded-md p-2 text-white ${
-            isLoading ? "cursor-not-allowed" : "cursor-pointer"
-          }`}
-          disabled={isLoading}
-        >
-          {isLoading ? "loading..." : "Register"}
-        </button>
+        <Button form={isLoading ? 'loading' : 'stock'} disabled={isLoading}>
+          {isLoading ? 'loading...' : 'Sign Up'}
+        </Button>
       </form>
+
+      <Divider opacity={50} />
+
+      <div className="flex items-center justify-center gap-2 w-full">
+        <Button as={Link} href={'/'} link className="w-full">
+          Hatenna
+        </Button>
+        <Button as={Link} href={'/login'} redirect className="w-full  durat">
+          Sign In
+        </Button>
+      </div>
     </Box>
   );
 }
