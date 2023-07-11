@@ -1,4 +1,4 @@
-export type LayoutCartType = "grid" | "stretch" | "around";
+export type LayoutCartType = 'grid' | 'stretch' | 'around';
 
 export interface CardAtributes {
   title: string;
@@ -13,26 +13,41 @@ export interface CardAtributes {
   episodeCount: number;
 }
 
+export interface CardContent {
+  id: string | number;
+  title: string;
+  image: string;
+  banner: string;
+  episodies: number;
+  year: number;
+  synopsis: string;
+  status: string;
+  startDate: string | null;
+  endDate: string | null;
+  color: string;
+}
+
 export interface SmallCardAnimeList {
-  slug: string;
+  id: string | number;
   image: string;
   title: string;
 }
 
 export interface LargeCardAnimeList {
-  slug: string;
-  post_image: string;
+  id: string | number;
+  banner: string;
   title: string;
-  episodeCount: number;
+  episodies: number;
+  year: number;
 }
 
 export interface MediumCardAnimeList {
-  slug: string;
+  id: string | number;
   image: string;
   title: string;
   synopsis: string;
   status: string;
-  episodeCount: number;
-  endDate: string;
-  startDate?: string;
+  episodies: number;
+  startDate: string | null;
+  endDate: string | null;
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { Button } from '@/styles/Button';
 import { api } from '@/server/api';
 import { SmallSpinner } from '@/components/SmallSpinner';
@@ -11,23 +11,21 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ isFavorite: initialState, slug, email }: FavoriteButtonProps) {
-  const { data, refetch, isFetching } = useQuery({
-    queryKey: ['isFavorite', slug],
-    queryFn: () => isFavoriteFetch(slug, email),
-    enabled: false,
-    cacheTime: 0,
-    initialData: initialState,
+  const { data, mutateAsync, isLoading } = useMutation({
+    mutationFn: () => isFavoriteFetch(slug, email),
   });
 
-  const buttonText = data ? 'Remove from Favorites' : 'Add to Favorites';
+  const value: boolean = data == undefined ? initialState : data;
+
+  const buttonText = value ? 'Remove from Favorites' : 'Add to Favorites';
 
   async function handleFavorite() {
-    await refetch();
+    await mutateAsync();
   }
 
   return (
-    <Button favorite={data} onClick={handleFavorite}>
-      {isFetching ? <SmallSpinner /> : buttonText}
+    <Button favorite={value ? 'true' : 'false'} onClick={handleFavorite}>
+      {isLoading ? <SmallSpinner /> : buttonText}
     </Button>
   );
 }

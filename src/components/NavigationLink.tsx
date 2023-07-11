@@ -11,14 +11,14 @@ interface LinkNavigationProps {
 export function LinkNavigation({ url, label, removeCache = false }: LinkNavigationProps) {
   if (removeCache) {
     return (
-      <Button as={'a'} href={url} link>
+      <Button as={'a'} href={url} link={true}>
         {label}
       </Button>
     );
   }
 
   return (
-    <Button as={Link} href={url} prefetch={false} link>
+    <Button as={Link} href={url} prefetch={false} link={true}>
       {label}
     </Button>
   );

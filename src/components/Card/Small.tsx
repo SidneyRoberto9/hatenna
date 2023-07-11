@@ -1,21 +1,21 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { SmallCardAnimeList, CardAtributes } from '@/@Types/Card';
+import { SmallCardAnimeList, CardContent } from '@/@Types/Card';
 
 interface LargeCardProps {
-  attributes: CardAtributes | SmallCardAnimeList;
+  attributes: CardContent | SmallCardAnimeList;
 }
 
 export function SmallCard({ attributes }: LargeCardProps) {
   return (
     <Link
-      href={`/anime/${attributes.slug}`}
+      href={`/anime/${attributes.id}`}
       className="flex h-72 w-48 max-w-5xl overflow-hidden rounded-md shadow-lg">
       <div className="relative h-72 w-full">
         <Image
           src={attributes.image}
-          alt={attributes.slug}
+          alt={attributes.id as string}
           width={192}
           height={288}
           loading="lazy"

@@ -45,12 +45,12 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className="mb-8 w-full">
       <Header session={session} shadow />
-      <Poster alt={animeData.title.canonical} image={animeData.image.cover} />
+      <Poster alt={animeData.title.canonical} image={animeData.image.poster} />
 
       <main className="m-auto flex max-w-5xl gap-4">
         <section className="relative -mt-32 h-72 w-52 max-lg:m-8">
           <Image
-            src={animeData.image.poster}
+            src={animeData.image.cover}
             alt={animeData.title.canonical}
             width={1920}
             height={1080}

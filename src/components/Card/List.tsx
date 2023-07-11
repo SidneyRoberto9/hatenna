@@ -29,13 +29,13 @@ export function CardList() {
               : aroundClass
           }>
           {layoutCardType === 'grid' &&
-            cardSearch.cards.map((card) => <SmallCard key={card.slug} attributes={card} />)}
+            cardSearch.cards.map((card) => <SmallCard key={card.id} attributes={card} />)}
 
           {layoutCardType === 'stretch' &&
-            cardSearch.cards.map((card) => <LargeCard key={card.slug} attributes={card} />)}
+            cardSearch.cards.map((card) => <LargeCard key={card.id} attributes={card} />)}
 
           {layoutCardType === 'around' &&
-            cardSearch.cards.map((card) => <MediumCard key={card.slug} attributes={card} />)}
+            cardSearch.cards.map((card) => <MediumCard key={card.id} attributes={card} />)}
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@ import { w } from 'windstitch';
 import Image from 'next/image';
 
 const PosterStyle = {
-  header: w.div('relative h-100 w-full shadow-md'),
+  header: w.div('relative h-[40rem] w-full shadow-md'),
   img: w(Image, {
     className: 'h-full w-full object-cover',
   }),

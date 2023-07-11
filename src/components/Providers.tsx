@@ -15,9 +15,9 @@ const queryClient = new QueryClient();
 export function Providers({ children }: ProvidersProps) {
   return (
     <SessionProvider>
-      <SearchContextProvider>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      </SearchContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <SearchContextProvider>{children}</SearchContextProvider>
+      </QueryClientProvider>
     </SessionProvider>
   );
 }

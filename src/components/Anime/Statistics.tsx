@@ -47,7 +47,7 @@ export function Statistics({ data }: StatisticsProps) {
   return (
     <StatisticsStyle.container>
       {staticData.map(({ icon, label, score }) => (
-        <RankBadge score={score} label={label} icon={icon} />
+        <RankBadge key={label} score={score} label={label} icon={icon} />
       ))}
     </StatisticsStyle.container>
   );

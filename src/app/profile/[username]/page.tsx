@@ -1,10 +1,8 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
+import { redirect } from 'next/navigation';
 
-import { HatennaAnime } from "@prisma/client";
-import { prisma } from "@/server/prisma";
-import { authOptions } from "@/server/auth";
-import { AnimePageView } from "@/components/AnimeList/PageView";
+import { HatennaAnime } from '@prisma/client';
+import { prisma } from '@/server/prisma';
+import { AnimePageView } from '@/components/AnimeList/PageView';
 
 interface PageProps {
   params: {
@@ -16,18 +14,15 @@ export default async function Page({ params }: PageProps) {
   const animeList = await getFavoriteAnimeList(params.username);
 
   return (
-    <>
-      <AnimePageView
-        name={params.username}
-        poster={getRandomPoster(animeList)}
-        animes={animeList}
-      />
-    </>
+    <AnimePageView name={params.username} poster={getRandomPoster(animeList)} animes={animeList} />
   );
 }
 
 function getRandomPoster(animesList: HatennaAnime[]) {
-  return animesList[Math.floor(Math.random() * animesList.length)].image.cover;
+  if (animesList.length === 0) {
+    return 'https://wallpapercave.com/wp/wp5313865.jpg';
+  }
+  return animesList[Math.floor(Math.random() * animesList.length)].image.poster;
 }
 
 async function getFavoriteAnimeList(name: string) {
@@ -38,7 +33,7 @@ async function getFavoriteAnimeList(name: string) {
   });
 
   if (!user) {
-    return redirect("/");
+    return redirect('/');
   }
 
   const animeSlugList = await prisma.favoriteAnimes.findMany({

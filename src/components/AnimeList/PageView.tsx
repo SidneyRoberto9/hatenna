@@ -1,11 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Fjalla_One } from "next/font/google";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Fjalla_One } from 'next/font/google';
 
-import { HatennaAnime } from "@prisma/client";
-import { AnimeList } from "@/components/AnimeList/List";
+import { HatennaAnime } from '@prisma/client';
+import { AnimeList } from '@/components/AnimeList/List';
 
-const fjalla_One = Fjalla_One({ subsets: ["latin"], weight: ["400"] });
+const fjalla_One = Fjalla_One({ subsets: ['latin'], weight: ['400'] });
 
 interface AnimeListProps {
   name: string;
@@ -20,13 +20,8 @@ export function AnimePageView({ name, poster, animes }: AnimeListProps) {
 
       <section className="z-10 h-full w-full max-w-5xl text-secondary-button">
         <div
-          className={`${fjalla_One.className} my-2 flex h-12 w-full items-center justify-between bg-primary-button`}
-        >
-          <Link
-            href={"/"}
-            prefetch={false}
-            className="cursor-pointer text-5xl font-bold"
-          >
+          className={`${fjalla_One.className} my-2 flex h-12 w-full items-center justify-between bg-primary-button`}>
+          <Link href={'/'} prefetch={false} className="cursor-pointer text-5xl font-bold">
             Hatenna
           </Link>
           <span className="flex text-lg font-medium capitalize">
@@ -36,14 +31,16 @@ export function AnimePageView({ name, poster, animes }: AnimeListProps) {
         </div>
 
         <div className="overflow-hidden rounded-md border border-primary-button/20 bg-secondary-button shadow-2xl">
-          <div className="h-100 w-full  border-[1rem] border-secondary-button">
+          <div className="h-auto w-full  border-[1rem] border-secondary-button">
             <Image
               src={poster}
               alt="Anime Poster"
-              width={1920}
-              height={1080}
+              width={1}
+              height={1}
+              sizes="100vh"
+              quality={100}
               priority
-              className="h-full w-full overflow-hidden  rounded-md border bg-primary-button/20 object-cover"
+              className="h-auto w-full overflow-hidden rounded-md border bg-primary-button/20 object-cover"
             />
           </div>
 
