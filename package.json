@@ -19,6 +19,7 @@
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.7",
+    "debug": "^4.3.4",
     "lucide-react": "^0.219.0",
     "next": "13.4.2",
     "next-auth": "^4.22.1",
@@ -28,6 +29,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.1",
+    "sharp": "^0.32.6",
+    "supports-color": "8.1.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
     "windstitch": "^0.3.0",
@@ -37,4 +40,3 @@
     "@types/bcryptjs": "^2.4.2"
   }
 }
-
