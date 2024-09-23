@@ -1,16 +1,17 @@
+'use server';
 import dayjs from 'dayjs';
 
-import { getOne } from '@/server/query/getOne';
-import { prisma } from '@/server/prisma';
-import { AniListApi } from '@/server/api';
-import {
-  textFormatter,
-  removeListDuplicates,
-  formatAniListSearchDate,
-  convertDuration,
-} from '@/helper/formater';
-import { HatennaAnimeData, HatennaAnime } from '@/@Types/Hatenna';
 import { GetOneResponseData } from '@/@Types/AniList';
+import { HatennaAnime, HatennaAnimeData } from '@/@Types/Hatenna';
+import {
+  convertDuration,
+  formatAniListSearchDate,
+  removeListDuplicates,
+  textFormatter,
+} from '@/helper/formater';
+import { AniListApi } from '@/server/api';
+import { prisma } from '@/server/prisma';
+import { getOne } from '@/server/query/getOne';
 
 export async function getAnimeData(slug: string): Promise<HatennaAnimeData> {
   const prismaAnimeData = await prisma.hatennaAnime.findUnique({

@@ -1,17 +1,17 @@
-import Image from 'next/image';
 import { getServerSession } from 'next-auth';
+import Image from 'next/image';
 
-import { Divider } from '@/styles/Divider';
-import { Box } from '@/styles/Box';
-import { prisma } from '@/server/prisma';
-import { authOptions } from '@/server/auth';
-import { getAnimeData } from '@/server/anime-data';
-import { Header } from '@/components/Header/Header';
-import { Statistics } from '@/components/Anime/Statistics';
-import { Poster } from '@/components/Anime/Poster';
-import { HeroBody } from '@/components/Anime/HeroBody';
-import { FavoriteButton } from '@/components/Anime/FavoriteButton';
 import { DataInfo } from '@/components/Anime/DataInfo';
+import { FavoriteButton } from '@/components/Anime/FavoriteButton';
+import { HeroBody } from '@/components/Anime/HeroBody';
+import { Poster } from '@/components/Anime/Poster';
+import { Statistics } from '@/components/Anime/Statistics';
+import { Header } from '@/components/Header/Header';
+import { getAnimeData } from '@/server/anime-data';
+import { authOptions } from '@/server/auth';
+import { prisma } from '@/server/prisma';
+import { Box } from '@/styles/Box';
+import { Divider } from '@/styles/Divider';
 
 interface PageProps {
   params: {

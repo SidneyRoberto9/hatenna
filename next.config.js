@@ -2,8 +2,8 @@
 const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs', 'windstitch'],
+    serverActions: true,
   },
-
   images: {
     remotePatterns: [
       {
@@ -15,4 +15,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-
